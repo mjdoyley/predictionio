@@ -40,6 +40,17 @@ case class Query(
 )
 ```
 
+And lets modify the `testingUsers.map` to allow for this new set in MyRecommendation/src/main/scala/***DataSource.scala***:
+
+```(new TrainingData(trainingRatings),
+new EmptyEvaluationInfo(),
+ testingUsers.map {
+   case (user, ratings) => (Query(user, evalParams.queryNum, Set.empty), ActualResult(ratings.toArray))
+ }
+)
+```      
+
+
 ## Filter the Data
 
 Then we need to change the code that computes recommendation score to filter out the seen items.
